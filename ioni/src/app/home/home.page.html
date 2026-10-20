@@ -12,7 +12,15 @@
     </div>
 
     <div class="doc-panel">
-      <h1>Ionic Framework</h1>
+      <div class="hero-panel">
+        <div class="hero-badge">
+          <ion-icon name="sparkles-outline"></ion-icon>
+        </div>
+        <div>
+          <p class="eyebrow">UI Kit</p>
+          <h1>Ionic Framework</h1>
+        </div>
+      </div>
 
       <ion-item lines="full" class="toggle-row">
         <ion-icon name="moon-outline" slot="start" class="item-icon-static"></ion-icon>
@@ -25,8 +33,20 @@
         </ion-toggle>
       </ion-item>
 
+      <div class="section-header">
+        <span>Componentes</span>
+        <ion-badge>{{ components.length }}</ion-badge>
+      </div>
+
       <ion-list class="component-list">
-        <ion-item *ngFor="let item of components" lines="full" class="component-item">
+        <ion-item
+          *ngFor="let item of components"
+          lines="full"
+          class="component-item"
+          [class.selected-component]="isSelectedComponent(item)"
+          button
+          detail="false"
+          (click)="onComponentClick(item)">
           <div class="component-badge" slot="start">
             <ion-icon [name]="item.icon"></ion-icon>
           </div>
@@ -34,6 +54,12 @@
           <ion-icon name="chevron-forward" slot="end" class="arrow-icon"></ion-icon>
         </ion-item>
       </ion-list>
+
+      <div *ngIf="selectedComponent" class="selection-card" aria-live="polite">
+        <p class="selection-label">Componente activo</p>
+        <h2>{{ selectedComponent.name }}</h2>
+        <p>{{ selectedComponent.description }}</p>
+      </div>
     </div>
   </div>
 </ion-content>
